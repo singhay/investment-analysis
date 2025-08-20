@@ -11,6 +11,7 @@ from utils import apply_stress_and_macro, score_scenarios
 from utils import apply_rebalancing, apply_drawdown, apply_tax_change
 
 ## --- Streamlit UI ---
+st.set_page_config(page_title="Scenario Analysis", page_icon=None, layout=None, initial_sidebar_state=None, menu_items=None)
 st.title("BC Real Estate: PR vs SM Scenario Analysis with Cash Flow")
 st.markdown(
     """
@@ -37,19 +38,7 @@ This tool projects your cash flow, equity, and net worth over 10 amort_years for
 You can adjust key variables to see how each scenario performs, helping you compare the impact of different approaches and make informed decisions for your financial goals.
     """
 )
-st.markdown(
-    """
-    <script>
-    document.title = "Investment Scenario Analysis";
-    var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-    link.type = 'image/x-icon';
-    link.rel = 'shortcut icon';
-    link.href = 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png';
-    document.getElementsByTagName('head')[0].appendChild(link);
-    </script>
-    """,
-    unsafe_allow_html=True
-)
+
 st.title("Investment Scenario Analysis")
 sidebar = st.sidebar
 sidebar.header("Input Variables")
