@@ -208,39 +208,36 @@ def scenario2_cashflow(
     # Initial PR loan
     pr_loan = pr_price * (1 - down_pr2)
     invest_principal = sm_principal
-
+    _, pr_monthly_balances = mortgage_balance_schedule(pr_loan, amort_years, rate_schedule)
+    heloc_balances = []
     for year in range(1, amort_years + 1):
         # PR appreciation
         pr_future = pr_price * ((1 + pr_app) ** year)
-
         # Investment growth
         invest_growth = invest_principal * ((1 + sm_return) ** year)
-
         # Annual income for marginal tax calculation
         income = income_start * ((1 + income_growth) ** year)
-        # Calculate BC marginal tax rate for this income
         _, marginal_tax_rate = calculate_bc_tax(income)
-
         # Calculate base mortgage rate for this year
         applicable_years = [yr for yr in rate_schedule.keys() if yr <= year]
         mortgage_rate = rate_schedule[max(applicable_years)] if applicable_years else list(rate_schedule.values())[0]
         heloc_rate = mortgage_rate + heloc_delta
-
+        # Dynamic HELOC: grows as PR principal is paid down
+        pr_principal_paid = (
+            pr_monthly_balances[min((year - 2) * 12, len(pr_monthly_balances) - 1)] - pr_monthly_balances[min((year - 1) * 12, len(pr_monthly_balances) - 1)]
+        ) if year > 1 else (pr_loan - pr_monthly_balances[min(12, len(pr_monthly_balances) - 1)])
+        heloc_balance = heloc_balances[-1] + pr_principal_paid if heloc_balances else pr_principal_paid
+        heloc_balances.append(heloc_balance)
         # Interest on HELOC used for rental mortgage (tax-deductible)
-        interest_payment = heloc_loan * heloc_rate
+        interest_payment = heloc_balance * heloc_rate
         tax_savings = interest_payment * marginal_tax_rate
         tax_savings_list.append(tax_savings)
-
         # Cash flow is the tax savings in SM minus CapEx, PR maintenance, and PR property tax for this year
         capex = capex_dict.get(year, 0)
-
-        # Use PR expenses from sidebar
         pr_expenses = pr_prop_tax_list[year - 1] + pr_insurance_list[year - 1] + pr_maintenance_list[year - 1]
         cashflow_list.append(tax_savings - capex - pr_expenses)
-
         # Mortgage balance for PR at end of year
-        pr_balance, _ = mortgage_balance_schedule(pr_loan, amort_years, rate_schedule)
-
+        pr_balance = pr_monthly_balances[min((year - 1) * 12, len(pr_monthly_balances) - 1)]
         # Total equity including SM growth and cumulative cash flow
         s2_equity_list.append(pr_future - pr_balance + invest_growth + sum(cashflow_list))
 

@@ -279,6 +279,71 @@ fig_tax_saved = px.line(
 )
 st.plotly_chart(fig_tax_saved, use_container_width=True)
 
+# --- HELOC Balance Visualization ---
+from models import scenario2_cashflow
+# Re-run scenario2_cashflow to get heloc_balances
+def get_heloc_balances(pr_price, sm_return, down_pr2, amort_years, rate_schedule, income_start, income_growth, pr_app, heloc_loan, heloc_delta, sm_principal, pr_prop_tax_list, pr_insurance_list, pr_maintenance_list):
+    s2_equity_list, cashflow_list, tax_savings_list = scenario2_cashflow(
+        pr_price,
+        sm_return,
+        down_pr2,
+        rate_schedule,
+        amort_years,
+        income_start,
+        income_growth,
+        pr_app,
+        heloc_loan,
+        heloc_delta,
+        sm_principal,
+        pr_prop_tax_list,
+        pr_insurance_list,
+        pr_maintenance_list,
+    )
+    pr_loan = pr_price * (1 - down_pr2)
+    _, pr_monthly_balances = mortgage_balance_schedule(pr_loan, amort_years, rate_schedule)
+    heloc_balances = []
+    for year in range(1, amort_years + 1):
+        pr_principal_paid = (
+            pr_monthly_balances[min((year - 2) * 12, len(pr_monthly_balances) - 1)] - pr_monthly_balances[min((year - 1) * 12, len(pr_monthly_balances) - 1)]
+        ) if year > 1 else (pr_loan - pr_monthly_balances[min(12, len(pr_monthly_balances) - 1)])
+        heloc_balance = heloc_balances[-1] + pr_principal_paid if heloc_balances else pr_principal_paid
+        heloc_balances.append(heloc_balance)
+    return heloc_balances
+
+heloc_balances = get_heloc_balances(
+    pr_price=pr_price,
+    sm_return=sm_return,
+    down_pr2=down_pr2,
+    amort_years=amort_years,
+    rate_schedule=rate_schedule,
+    income_start=income_start,
+    income_growth=income_growth,
+    pr_app=pr_app,
+    heloc_loan=heloc_loan,
+    heloc_delta=heloc_delta,
+    sm_principal=sm_principal,
+    pr_prop_tax_list=pr_prop_tax_list,
+    pr_insurance_list=pr_insurance_list,
+    pr_maintenance_list=pr_maintenance_list,
+)
+st.subheader("HELOC Balance Over Time (Smith Manoeuvre)")
+years = np.arange(1, amort_years + 1)
+# Calculate mortgage principal balance for each year
+pr_loan = pr_price * (1 - down_pr2)
+_, pr_monthly_balances = mortgage_balance_schedule(pr_loan, amort_years, rate_schedule)
+mortgage_principal_balances = [pr_monthly_balances[min(int(year) * 12, len(pr_monthly_balances) - 1)] for year in years]
+
+fig_heloc = px.line(
+    x=years,
+    y=[heloc_balances, mortgage_principal_balances],
+    labels={"x": "Year", "value": "Balance ($)", "variable": "Type"},
+    title="HELOC vs Mortgage Principal Balance Over Time",
+)
+fig_heloc.update_traces(mode="lines")
+fig_heloc.data[0].name = "HELOC Balance"
+fig_heloc.data[1].name = "Mortgage Principal Balance"
+st.plotly_chart(fig_heloc, use_container_width=True)
+
 # --- Scenario Comparison Table ---
 st.subheader("Scenario Comparison Table")
 comparison_data = {
