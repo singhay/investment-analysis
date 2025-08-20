@@ -11,7 +11,7 @@ from utils import apply_stress_and_macro, score_scenarios
 from utils import apply_rebalancing, apply_drawdown, apply_tax_change
 
 ## --- Streamlit UI ---
-st.set_page_config(page_title="Scenario Analysis", page_icon=None, layout=None, initial_sidebar_state=None, menu_items=None)
+st.set_page_config(page_title="Scenario Analysis", page_icon="💰")
 st.title("BC Real Estate: PR vs SM Scenario Analysis with Cash Flow")
 st.markdown(
     """
