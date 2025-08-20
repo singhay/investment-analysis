@@ -216,7 +216,7 @@ s1_equity, s2_equity, s1_cashflow, s2_cashflow = apply_drawdown(
 s1_equity, s2_equity = apply_tax_change(s1_equity, s2_equity, future_tax_change)
 
 # Display Summary in Main Pane
-st.subheader("10-Year Projection Summary")
+st.subheader(f"{amort_years}-Year Projection Summary")
 summary_df = pd.DataFrame(
     {
         "Year": np.arange(1, amort_years + 1),
