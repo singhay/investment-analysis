@@ -19,10 +19,11 @@ st.markdown(
 ### **Scenario 1: Principal Residence (10% Down Payment)**  
 - Buy a principal residence with a 10% down payment and a rental property with the remaining cash for a 20% down payment.  
 - Build equity through property appreciation and rental income.
+- Equity build-up is slower due to lower down payment, but equity starts becoming available for rental property mortgage payment right away.
 
 Cons:
-- Use a re-advanceable mortgage feature: as you pay down your principal residence mortgage over the amort_years. Once 20% equity is built (5y in our case), any principal that's paid-down amount becomes instantly available to help fund the rental property mortgage payment which in-turn becomes tax-deductible.
-- But to start doing Smith Manoeuvre, we'll have to wait 5 amort_years (until we have enough equity).
+- Use a re-advanceable mortgage feature: as you pay down your principal residence mortgage over the years. Once 20% equity is built (5y in our case), any principal that's paid-down amount becomes instantly available to help fund the rental property mortgage payment which in-turn becomes tax-deductible.
+- But to start doing Smith Manoeuvre, we'll have to wait 5 years (until we have enough equity).
 
 ### **Scenario 2: Principal Residence + Smith Manoeuvre (20% Down Payment)**  
 - Buy a principal residence with a 20% down payment. 
@@ -30,12 +31,65 @@ Cons:
 - Use the Smith Manoeuvre: take re-advanceable mortgage on the principals after the 20% equity to pay rental property mortgage.  
 
 Cons:
-- Will have to save money to buy a rental property in the future. Currently available 350k - 300k (PR 20%) = 50k, will need another 100k to be able to afford 750k property. 100k will take 2 amort_years to save at 50k/year.
+- Will have to save money to buy a rental property in the future. Currently available 350k - 300k (PR 20%) = 50k, will need another 100k to be able to afford 750k property. 100k will take 2 years to save at 50k/year.
 - So this strategy involves waiting and potentially missing out on market opportunities.
 - Rental property may appreciate in value during the waiting period making buying it more expensive / out of reach. In other words, loosing out on rental income + appreciation during the waiting period.
 
+There are several additional variables and nuances that are often overlooked but can materially affect net worth, cash flow, and tax efficiency.
+
+### **1. Mortgage & Financing Variables**
+
+* **Interest type:** fixed vs variable, and their reset/review periods.
+* **Prepayment options:** lump sum or accelerated payments (affects interest and equity).
+* **Refinancing costs:** penalties, fees, and legal costs if you refinance to invest.
+* **Amortization period choice** beyond 25–30 years.
+* **CMHC insurance premium** (if high-ratio), whether financed or paid upfront.
+
+### **2. Investment Property Variables**
+
+* **Rental income:** monthly rent, vacancy rates, and rent growth projections.
+* **Operating expenses:** property taxes, strata/condo fees, insurance, maintenance, utilities.
+* **Capital expenditures (CapEx):** periodic major repairs, e.g., roof, HVAC, painting.
+* **Property management fees:** if you hire a manager, usually 5–10% of rent.
+* **Depreciation for tax purposes:** can offset rental income.
+
+### **3. Principal Residence Variables**
+
+* **PR appreciation rate variability:** might differ by neighborhood, market cycles.
+* **Renovation/improvement costs:** affects equity and future appreciation.
+* **Property taxes & maintenance:** recurring costs that reduce disposable cash flow.
+
+### **4. Tax & Income Variables**
+
+* **Marginal tax rate changes:** as your income grows, the tax bracket may change.
+* **Capital gains tax on future rental property sale:** often overlooked in long-term projections.
+* **Deductibility of mortgage interest (Smith Manoeuvre):** affected by CRA rules.
+* **Other tax credits / deductions:** e.g., RRSP contributions, childcare, etc.
+
+### **5. Market & Macro Variables**
+
+* **Interest rate shifts** beyond your scheduled projections.
+* **Housing market cycles** – risk of negative equity or slow appreciation.
+* **Inflation:** affects both expenses and income growth.
+* **Currency risk** (if considering foreign investment).
+
+### **6. Cash Flow & Liquidity**
+
+* **Emergency cash reserves** to cover mortgage, tax, or repair spikes.
+* **Monthly cash flow:** difference between rental income and all property-related outflows.
+* **Liquidity constraints:** large down payments reduce flexibility.
+
+### **7. Scenario-Specific Variables**
+
+* **Smith Manoeuvre return assumptions:** rate of return on invested borrowed funds.
+* **Timing of deductions and investments:** early vs late in year affects compounding.
+* **Leverage effect:** borrowing more increases potential returns **and losses**.
+* **Multiple properties:** correlation between property values.
+
+---
+
 **Analysis Overview:**  
-This tool projects your cash flow, equity, and net worth over 10 amort_years for both strategies.  
+This tool projects your cash flow, equity, and net worth over 10 years for both strategies.  
 You can adjust key variables to see how each scenario performs, helping you compare the impact of different approaches and make informed decisions for your financial goals.
     """
 )
